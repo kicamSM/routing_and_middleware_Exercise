@@ -33,11 +33,12 @@ router.get("/:name", function (req, res) {
 
 router.patch("/:name", function (req, res) {
     const foundItem = items.find(item => item.name === req.params.name)
+    console.log(foundItem)
     if (foundItem === undefined) {
       throw new ExpressError("Item not found", 404)
     }
-    foundItem.name = req.body.name
-    foundItem.price = req.body.price
+    foundItem.name = req.body.name || foundItem.name
+    foundItem.price = req.body.price || foundItem.price
     res.json({ updated: foundItem })
   })
 
